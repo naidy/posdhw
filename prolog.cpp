@@ -7,6 +7,10 @@ bool Number::match(Variable* v){
 	return v->match(this);
 }
 
+bool Number::match(Variable v){
+	return true;
+}
+
 //Variable
 bool Variable::match(Number* n){
 	if (std::to_string(n->value()) == _value)

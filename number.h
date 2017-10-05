@@ -14,7 +14,7 @@ public:
     return _value == i;
   }
   bool match(Atom atom){return false;}
-  bool match(Variable v){return true;}
+  bool match(Variable v);
   bool match(Variable* v);
 
 private:
