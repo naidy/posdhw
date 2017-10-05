@@ -11,7 +11,7 @@ class Number{
 public:
   Number(int i):_value(i){}
   string _symbol;
-  string symbol(){ return _symbol;}
+  string symbol(){ return std::to_string(_value);}
   string value(){ return std::to_string(_value); }
   bool match( int i ){
     return _value == i;
