@@ -8,7 +8,7 @@ bool Number::match(Variable* v){
 }
 
 bool Number::match(Variable v){
-	return true;
+	return v.match(this);
 }
 
 //Variable
@@ -43,5 +43,5 @@ bool Atom::match(Variable* v){
 }
 
 bool Atom::match(Variable v){
-	return _symbol == v.value();
+	return v.match(this);
 }
