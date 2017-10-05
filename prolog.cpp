@@ -13,21 +13,21 @@ bool Number::match(Variable v){
 
 //Variable
 bool Variable::match(Number* n){
-	if (std::to_string(n->value()) == _value)
+	if (n->value() == _value)
 		return true;
 	bool ret = _assignable;
 	if(_assignable){
-	  _value = std::to_string(n->value());
+	  _value = n->value();
 	  _assignable = false;
 	}
 	return ret;
 }
 bool Variable::match(Number n){
-	if (std::to_string(n.value()) == _value)
+	if (n.value() == _value)
 		return true;
 	bool ret = _assignable;
 	if(_assignable){
-	  _value = std::to_string(n.value());
+	  _value = n.value();
 	  _assignable = false;
 	}
 	return ret;
