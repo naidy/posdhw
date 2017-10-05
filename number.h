@@ -20,8 +20,7 @@ public:
   	return this->value() == n.value();
   }
   bool match(Atom atom);
-  bool match(Variable v);
-  bool match(Variable* v);
+  bool match(Variable& v);
 
 private:
   int _value;

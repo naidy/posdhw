@@ -23,17 +23,6 @@ public:
     }
     return ret;
   }
-  bool match( Atom* atom ){
-    if (_value == atom->_symbol)
-      return true;
-    bool ret = _assignable;
-    if(_assignable){
-      _value = atom->_symbol ;
-      _assignable = false;
-    }
-    return ret;
-  }
-  bool match(Number* n);
   bool match(Number n);
 
 private:

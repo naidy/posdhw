@@ -3,12 +3,9 @@
 #include "variable.h"
 
 //Number
-bool Number::match(Variable* v){
-	return v->match(this);
-}
-
-bool Number::match(Variable v){
-	return v.match(this);
+bool Number::match(Variable& v){
+	Number n(_value);
+	return v.match(n);
 }
 
 bool Number::match(Atom atom){
@@ -16,16 +13,6 @@ bool Number::match(Atom atom){
 }
 
 //Variable
-bool Variable::match(Number* n){
-	if (n->value() == _value)
-		return true;
-	bool ret = _assignable;
-	if(_assignable){
-	  _value = n->value();
-	  _assignable = false;
-	}
-	return ret;
-}
 bool Variable::match(Number n){
 	if (n.value() == _value)
 		return true;
@@ -42,10 +29,7 @@ bool Atom::match(Number n){
 	return n.value() == _symbol;
 }
 
-bool Atom::match(Variable* v){
-	v->match(this);
-}
-
-bool Atom::match(Variable v){
-	return v.match(this);
+bool Atom::match(Variable& v){
+	Atom tom(_symbol);
+	return v.match(tom);
 }

@@ -14,8 +14,7 @@ public:
   bool operator ==(Atom a) {return _symbol == a._symbol;}
   bool match(Atom a) {return _symbol == a._symbol;}
   bool match(Number n);
-  bool match(Variable* v);
-  bool match(Variable v);
+  bool match(Variable& v);
   string _symbol;
 };
 

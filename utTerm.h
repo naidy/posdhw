@@ -57,7 +57,7 @@ TEST (Atom, matchFailureDiffConstant) {
 TEST (Atom, matchSuccessToVariable) {
 	Atom tom("tom");
 	Variable X("X");
-	tom.match(&X);
+	tom.match(X);
 	ASSERT_EQ("tom", X.value());
 }
 
@@ -67,7 +67,7 @@ TEST (Atom, matchSuccessToVariableInstantedToDiffConstant) {
 	Variable X("X");
 	Atom tom("tom");
 	X.match(tom);
-	tom.match(&X);
+	tom.match(X);
 	ASSERT_EQ("tom", X.value());
 }
 
@@ -78,7 +78,7 @@ TEST (Atom, matchFailureToVariableInstantedToDiffConstant) {
 	Atom jerry("jerry");
 	Atom tom ("tom");
 	X.match(jerry);
-	ASSERT_FALSE(tom.match(&X));
+	ASSERT_FALSE(tom.match(X));
 }
 
 // ?- X = 5.
@@ -114,8 +114,8 @@ TEST (Variable, matchSuccessToAtomThenFailureToNumber2) {
 	Atom tom("tom");
 	Variable X("X");
 	Number n(25);
-	tom.match(&X);
-	ASSERT_FALSE(n.match(&X));
+	tom.match(X);
+	ASSERT_FALSE(n.match(X));
 }
 //?- X=tom, X=tom.
 //true.
