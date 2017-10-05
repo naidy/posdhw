@@ -8,11 +8,15 @@ else
 endif
 
 mainTerm.o: mainTerm.cpp utTerm.h
-	g++ -std=c++11 -c mainTerm.cpp
+	g++ -std=gnu++0x -c mainTerm.cpp
 prolog.o: prolog.cpp atom.h number.h variable.h
-	g++ -std=c++11 -c prolog.cpp
+	g++ -std=gnu++0x -c prolog.cpp
 
 clean:
-	rm -f *.o madRace utAtom
+ifeq (${OS}, Windows_NT)
+	del *.o *.exe
+else
+	rm -f *.o exp
+endif
 stat:
 	wc *.h *.cpp
