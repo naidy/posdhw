@@ -13,6 +13,9 @@ public:
   bool match( int i ){
     return _value == i;
   }
+  bool match(Number* n){
+  	return _value == n->value();
+  }
   bool match(Atom atom){return false;}
   bool match(Variable v);
   bool match(Variable* v);
