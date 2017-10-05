@@ -11,6 +11,10 @@ bool Number::match(Variable v){
 	return v.match(this);
 }
 
+bool Number::match(Atom atom){
+	return this->value() == atom._symbol;
+}
+
 //Variable
 bool Variable::match(Number* n){
 	if (n->value() == _value)
@@ -35,7 +39,7 @@ bool Variable::match(Number n){
 
 //Atom
 bool Atom::match(Number n){
-	return false;
+	return n.value() == _symbol;
 }
 
 bool Atom::match(Variable* v){

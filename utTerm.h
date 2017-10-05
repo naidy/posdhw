@@ -19,13 +19,15 @@ TEST (Number, symbol) {
 //true.
 TEST (Number, matchSuccess) {
 	Number n(25);
-	ASSERT_TRUE(n.match(25));
+	Number m(25);
+	ASSERT_TRUE(n.match(m));
 }
 //?- 25=0.
 //false.
 TEST (Number, matchFailureDiffValue) {
 	Number n(25);
-	ASSERT_FALSE(n.match(0));
+	Number m(0);
+	ASSERT_FALSE(n.match(m));
 }
 //?- 25=tom.
 //false.

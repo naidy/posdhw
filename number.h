@@ -19,7 +19,7 @@ public:
   bool match(Number n){
   	return this->value() == n.value();
   }
-  bool match(Atom atom){return false;}
+  bool match(Atom atom);
   bool match(Variable v);
   bool match(Variable* v);
 
