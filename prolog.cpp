@@ -41,3 +41,7 @@ bool Atom::match(Number n){
 bool Atom::match(Variable* v){
 	v->match(this);
 }
+
+bool Atom::match(Variable v){
+	return _symbol == v.value();
+}
