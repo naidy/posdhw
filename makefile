@@ -1,24 +1,13 @@
-INC_DIR = include
+all: hw2
 
-all: hw1
+hw2: mainTerm.o prolog.o
+	g++ -o hw2 mainTerm.o prolog.o -lgtest -lpthread
+mainTerm.o: mainTerm.cpp utTerm.h
+	g++ -std=c++11 -c mainTerm.cpp
+prolog.o: prolog.cpp atom.h number.h variable.h
+	g++ -std=c++11 -c prolog.cpp
 
-hw1: main.o Shapes.o Media.o
-ifeq (${OS}, Windows_NT)
-	g++ -o hw1 main.o Shapes.o Media.o -lgtest
-else
-	g++ -o hw1 main.o Shapes.o Media.o -lgtest -lpthread
-endif
-	
-main.o: main.cpp utSort.h $(INC_DIR)/Sort.h
-	g++ -std=gnu++0x -c main.cpp
-Shapes.o: $(INC_DIR)/Shapes.h Shapes.cpp
-	g++ -std=gnu++0x -c Shapes.cpp
-Media.o: $(INC_DIR)/Media.h Media.cpp
-	g++ -std=gnu++0x -c Media.cpp
-
-clean:	
-ifeq (${OS}, Windows_NT)
-	del *.o *.exe
-else
-	rm -f *.o exp
-endif
+clean:
+	rm -f *.o madRace utAtom
+stat:
+	wc *.h *.cpp
