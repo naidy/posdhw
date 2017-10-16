@@ -36,7 +36,7 @@ public:
       for (int i = 0; i < _match.size(); i++)
         _match[i]->match(term);
     }
-    return ret;
+    return true;
   }
 
 private:
