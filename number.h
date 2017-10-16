@@ -14,8 +14,8 @@ class Number : public Term{
 public:
   Number(double value):_value(value){}
   string _symbol;
-  string symbol() const { return util::to_string(_value);}
-  string value() const { return util::to_string(_value); }
+  string symbol() const { return std::to_string(_value);}
+  string value() const { return std::to_string(_value); }
   bool match(Term & term){
   	return this->value() == term.value();
   }
