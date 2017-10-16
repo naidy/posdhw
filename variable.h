@@ -18,8 +18,8 @@ public:
       if (_match[i] == &v)
         return true;
     }
+    _value = v.value() ;
     if (_assignable && v.isMatch()){
-      _value = v.value() ;
       _assignable = false;
     }
     _match.push_back(&v);
