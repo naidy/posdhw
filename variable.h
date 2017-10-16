@@ -19,9 +19,9 @@ public:
         return true;
     }
     _value = v.value() ;
-    /*if (_assignable && v.isMatch()){
+    if (_assignable && v.isMatch()){
       _assignable = false;
-    }*/
+    }
     _match.push_back(&v);
     v.match(*this);
     for (int i = 0; i < _match.size(); i++)
@@ -29,6 +29,8 @@ public:
     return true;
   }
   bool match(Term & term){
+    if (_value == term.value())
+      return true;
     bool ret = _assignable;
     if(_assignable){
       _value = term.value() ;
