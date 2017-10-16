@@ -31,6 +31,10 @@ public:
     return _symbol;
   }
 
+  bool match(Term & term) {
+    return symbol() == term.symbol();
+  }
+
   bool match(Variable &);
 
   string _symbol;
