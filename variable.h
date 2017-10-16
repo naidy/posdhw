@@ -45,4 +45,12 @@ private:
   std::vector<Variable*> _match;
 };
 
+bool Atom::match(Variable & v){
+  return v.match(*this);
+}
+
+bool Number::match(Variable & v){
+  return v.match(*this);
+}
+
 #endif
