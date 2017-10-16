@@ -3,27 +3,23 @@
 
 #include <string>
 #include "atom.h"
-#include "variable.h"
 
 using std::string;
 
-class Number{
+namespace util { template <typename T> std::string to_string(const T& t) { std::string str{std::to_string (t)}; int offset{1}; if (str.find_last_not_of('0') == str.find('.')) { offset = 0; } str.erase(str.find_last_not_of('0') + offset, std::string::npos); return str; } }
+
+class Number : public Term{
 public:
-  Number(int i):_value(i){}
+  Number(double value):_value(value){}
   string _symbol;
-  string symbol(){ return std::to_string(_value);}
-  string value(){ return std::to_string(_value); }
-  bool match( int i ){
-    return _value == i;
+  string symbol() const { return util::to_string(_value);}
+  string value() const { return util::to_string(_value); }
+  bool match(Term & term){
+  	return this->value() == term.value();
   }
-  bool match(Number n){
-  	return this->value() == n.value();
-  }
-  bool match(Atom atom);
-  bool match(Variable& v);
 
 private:
-  int _value;
+  double _value;
 };
 
 #endif

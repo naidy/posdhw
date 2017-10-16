@@ -2,32 +2,47 @@
 #define VARIABLE_H
 
 #include <string>
+#include <vector>
 #include "atom.h"
-#include "number.h"
 using std::string;
 
-class Number;
-
-class Variable{
+class Variable : public Term{
 public:
-  Variable(string s):_symbol(s){}
+  Variable(string s):_symbol(s), _value(s){}
   string const _symbol;
-  string value(){ return _value; }
-  bool match( Atom atom ){
-    if (_value == atom._symbol)
-      return true;
+  string symbol() const {return _symbol;}
+  string value() const { return _value; }
+  bool isMatch(){return !_assignable;}
+  bool match(Variable & v){
+    for (int i = 0; i < _match.size(); i++){
+      if (_match[i] == &v)
+        return true;
+    }
+    if (_assignable && v.isMatch()){
+      _value = v.value() ;
+      _assignable = false;
+    }
+    _match.push_back(&v);
+    v.match(*this);
+    for (int i = 0; i < _match.size(); i++)
+      _match[i]->match(v);
+    return true;
+  }
+  bool match(Term & term){
     bool ret = _assignable;
     if(_assignable){
-      _value = atom._symbol ;
+      _value = term.value() ;
       _assignable = false;
+      for (int i = 0; i < _match.size(); i++)
+        _match[i]->match(term);
     }
     return ret;
   }
-  bool match(Number n);
 
 private:
   string _value;
   bool _assignable = true;
+  std::vector<Variable*> _match;
 };
 
 #endif

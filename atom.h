@@ -5,17 +5,33 @@
 
 using std::string;
 
-class Number;
-class Variable;
 
-class Atom {
+class Term{
+
+public:
+  virtual string symbol() const= 0;
+
+  virtual string value() const{
+    return symbol();
+  };
+
+  virtual bool match(Term & term) {
+    return symbol() == term.symbol();
+  }
+
+
+};
+
+class Atom : public Term{
 public:
   Atom (string s):_symbol(s) {}
-  bool operator ==(Atom a) {return _symbol == a._symbol;}
-  bool match(Atom a) {return _symbol == a._symbol;}
-  bool match(Number n);
-  bool match(Variable& v);
+
+  string symbol() const{
+    return _symbol;
+  }
+
   string _symbol;
 };
+
 
 #endif

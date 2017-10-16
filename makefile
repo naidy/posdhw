@@ -1,16 +1,14 @@
-all: hw2
+all: hw3
 
-hw2: mainTerm.o prolog.o
+hw3: main.o
 ifeq (${OS}, Windows_NT)
-	g++ -o hw2 mainTerm.o prolog.o -lgtest
+	g++ -o hw3 main.o -lgtest
 else
-	g++ -o hw2 mainTerm.o prolog.o -lgtest -lpthread
+	g++ -o hw3 main.o -lgtest -lpthread
 endif
 
-mainTerm.o: mainTerm.cpp utTerm.h
-	g++ -std=gnu++0x -c mainTerm.cpp
-prolog.o: prolog.cpp atom.h number.h variable.h
-	g++ -std=gnu++0x -c prolog.cpp
+main.o: main.cpp utStruct.h utVariable.h atom.h struct.h variable.h number.h
+	g++ -std=gnu++0x -c main.cpp
 
 clean:
 ifeq (${OS}, Windows_NT)
