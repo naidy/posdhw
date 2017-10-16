@@ -5,6 +5,7 @@
 
 using std::string;
 
+class Variable;
 
 class Term{
 
@@ -29,6 +30,8 @@ public:
   string symbol() const{
     return _symbol;
   }
+
+  bool match(Variable &);
 
   string _symbol;
 };
