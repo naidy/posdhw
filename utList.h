@@ -221,7 +221,7 @@ TEST (List, emptyExecptionOfTail) {
   ASSERT_THROW(l.tail(), std::string);
 }
 
-
+ 
 
 
 #endif
