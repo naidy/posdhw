@@ -2,58 +2,32 @@
 #define VARIABLE_H
 
 #include <string>
-#include <vector>
 #include "atom.h"
-#include "struct.h"
 using std::string;
 
-class Variable : public Term{
+class List;
+
+class Variable : public Term {
 public:
-  Variable(string s):_symbol(s), _value(s){}
-  string const _symbol;
-  string symbol() const {return _symbol;}
-  string value() const {return _value;}
-  bool isMatch(){return !_assignable;}
-  bool match(Variable & v){
-    for (int i = 0; i < _match.size(); i++){
-      if (_match[i] == &v)
-        return true;
-    }
-    _value = v.value() ;
-    if (_assignable && v.isMatch()){
-      _assignable = false;
-    }
-    _match.push_back(&v);
-    v.match(*this);
-    for (int i = 0; i < _match.size(); i++)
-      _match[i]->match(v);
-    return true;
+  Variable(string s):Term(s), _inst(0){}
+  string value() const {
+    if (_inst)
+      return _inst->value();
+    else
+      return Term::value();
   }
-  bool match(Term & term){
-    if (_value == term.value())
+  bool match( Term & term ){
+    if (this == &term)
       return true;
-    bool ret = _assignable;
-    if(_assignable){
-      _value = term.value() ;
-      _assignable = false;
-      for (int i = 0; i < _match.size(); i++)
-        _match[i]->match(term);
+    if(!_inst){
+      _inst = &term ;
+      return true;
     }
-    return ret;
+    return _inst->match(term);
   }
-
+  bool match(List&);
 private:
-  string _value;
-  bool _assignable = true;
-  std::vector<Variable*> _match;
+  Term * _inst;
 };
-
-bool Atom::match(Variable & v){
-  return v.match(*this);
-}
-
-bool Number::match(Variable & v){
-  return v.match(*this);
-}
 
 #endif
