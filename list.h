@@ -9,6 +9,8 @@
 using std::vector;
 using std::string;
 
+class Variable;
+
 class List : public Term {
 public:
   string symbol() const {
@@ -52,6 +54,7 @@ public:
 		return this->tail()->match(*(term.tail()));
 	return false;
   }
+  bool match(Variable &);
   bool checkOccur(Term & t) const {
   	for (int i = 0; i < _elements.size(); i++)
   		if (_elements[i] == &t)
