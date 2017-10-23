@@ -12,3 +12,7 @@ bool Variable::match(List & term){
     return _inst->match(term);
   }
 }
+
+bool List::match(Variable & term){
+	term.match(*this);
+}
