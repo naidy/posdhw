@@ -54,13 +54,14 @@ public:
 		return this->tail()->match(*(term.tail()));
 	return false;
   }
+  /*
   bool match(Variable &);
   bool checkOccur(Term & t) const {
   	for (int i = 0; i < _elements.size(); i++)
   		if (_elements[i] == &t)
   			return true;
   	return false;
-  }
+  }*/
 
 public:
   List (): _elements() {}

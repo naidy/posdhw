@@ -5,8 +5,6 @@
 #include "atom.h"
 using std::string;
 
-class List;
-
 class Variable : public Term {
 public:
   Variable(string s):Term(s), _inst(0){}
@@ -25,7 +23,6 @@ public:
     }
     return _inst->match(term);
   }
-  bool match(List&);
 private:
   Term * _inst;
 };
