@@ -10,7 +10,8 @@ public:
   virtual string symbol() const {return _symbol;}
   virtual string value() const {return symbol();}
   virtual bool match(Term & a);
-  virtual int arity(){return 0;};
+  virtual int arity(){return 1;}
+  virtual Term* args(int index){return this;}
 protected:
   Term ():_symbol(""){}
   Term (string s):_symbol(s) {}

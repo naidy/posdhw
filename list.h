@@ -84,6 +84,14 @@ public:
   	}
   }
 
+  Term* args (int index){
+    return _elements[index];
+  }
+
+  int arity() {
+    return _elements.size();
+  }
+
 private:
   vector<Term *> _elements;
 
