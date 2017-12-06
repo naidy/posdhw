@@ -17,41 +17,30 @@ public:
     return _args[index];
   }
 
-  int arity() {
-    return _args.size();
-  }
-
   Atom & name() {
     return _name;
   }
   string symbol() const {
+    if(_args.empty())
+    return  _name.symbol() + "()";
     string ret = _name.symbol() + "(";
     std::vector<Term *>::const_iterator it = _args.begin();
-
-    if (_args.empty()){
-      ret += ")";
-      return ret;
-    }
-
     for (; it != _args.end()-1; ++it)
       ret += (*it)->symbol()+", ";
     ret  += (*it)->symbol()+")";
     return ret;
   }
+
   string value() const {
     string ret = _name.symbol() + "(";
     std::vector<Term *>::const_iterator it = _args.begin();
-
-    if (_args.empty()){
-      ret += ")";
-      return ret;
-    }
-
     for (; it != _args.end()-1; ++it)
       ret += (*it)->value()+", ";
     ret  += (*it)->value()+")";
     return ret;
   }
+  int arity() const {return _args.size();}
+  Iterator * createIterator();
 private:
   Atom _name;
   std::vector<Term *> _args;
