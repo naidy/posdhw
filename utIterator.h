@@ -19,14 +19,14 @@ TEST(iterator, first) {
     // ASSERT_EQ(it.first()->symbol());
     itStruct->first();
     ASSERT_EQ("1", itStruct->currentItem()->symbol());
-    /*ASSERT_FALSE(itStruct->isDone());
+    ASSERT_FALSE(itStruct->isDone());
     itStruct->next();
     ASSERT_EQ("t(X, 2)", itStruct->currentItem()->symbol());
     ASSERT_FALSE(itStruct->isDone());
     itStruct->next();
     ASSERT_EQ("Y", itStruct->currentItem()->symbol());
     itStruct->next();
-    ASSERT_TRUE(itStruct->isDone());*/
+    ASSERT_TRUE(itStruct->isDone());
 }
 
 TEST(iterator, nested_iterator) {
@@ -79,6 +79,58 @@ TEST(iterator, NullIterator){
   ASSERT_TRUE(it->isDone());
 }
 
+TEST(iterator, Struct_BFSIterator){
+  Number one(1);
+  Variable X("X");
+  Variable Y("Y");
+  Number two(2);
+  Struct t(Atom("t"), { &X, &two });
+  Struct s(Atom("s"), { &one, &t, &Y });
+  Iterator<Term*> * it = s.createBFSIterator();
+  it->first();
+  EXPECT_EQ("1", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("t(X, 2)", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("Y", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("X", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("2", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_TRUE(it->isDone());
+}
 
+TEST(iterator, List_BFSIterator){
+  Number one(1);
+  Variable X("X");
+  Variable Y("Y");
+  Number two(2);
+  Struct t(Atom("t"), { &X, &two });
+  List l({ &one, &t, &Y });
+  Iterator<Term*> * it = l.createBFSIterator();
+  it->first();
+  EXPECT_EQ("1", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("t(X, 2)", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("Y", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("X", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("2", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_TRUE(it->isDone());
+}
 
 #endif

@@ -2,6 +2,7 @@
 #define ITERATOR_H
 
 #include <vector>
+#include <iostream>
 using std::vector;
 
 template <class T>
@@ -45,18 +46,16 @@ public:
     vector<T> q;
     q.push_back(_term);
     while(!q.empty()){
-      T t = q.front();
+      T t = q.back();
       _v.push_back(t);
 
       q.pop_back();
-
-      if (t->arity() == 0)
-        break;
 
       for (int i = 0; i < t->arity(); i++){
         q.insert(q.begin(), t->args(i));
       }
     }
+    _v.erase(_v.begin());
   }
 
   void first() {
@@ -64,11 +63,11 @@ public:
   }
 
   Term* currentItem() const {
-    return _term->args(_index);
+    return _v[_index];
   }
 
   bool isDone() const {
-    return _index >= _term->arity();
+    return _index >= _v.size();
   }
 
   void next() {
