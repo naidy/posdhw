@@ -187,4 +187,202 @@ TEST(iterator, List_DFSIterator){
   EXPECT_TRUE(it->isDone());
 }
 
+TEST(iterator, Struct_and_List_BFSIterator){
+  Atom bun("bun"), beefPatty("beefPatty"), shreddedLettuce("shreddedLettuce"), 
+    sauce("sauce"), cheese("cheese"), pickleSlice1("pickleSlice1"), pickleSlice2("pickleSlice2"), 
+    onion1("onion1"), onion2("onion2"), coke("coke"), fries1("fries1"), fries2("fries2");
+  List pickleSlice({ &pickleSlice1, &pickleSlice2});
+  List onion({ &onion1, &onion2});
+  List fries({ &fries1, &fries2});
+  Struct bigMac(Atom("bigMac"), { &bun, &beefPatty, &shreddedLettuce, &sauce, &cheese, 
+    &pickleSlice, &onion});
+  Struct combo1(Atom("combo1"), { &bigMac, &coke, &fries});
+
+  Iterator<Term*> * it = combo1.createBFSIterator();
+  it->first();
+  EXPECT_EQ("bigMac(bun, beefPatty, shreddedLettuce, sauce, cheese, [pickleSlice1, pickleSlice2], [onion1, onion2])", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("coke", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("[fries1, fries2]", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("bun", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("beefPatty", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("shreddedLettuce", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("sauce", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("cheese", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("[pickleSlice1, pickleSlice2]", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("[onion1, onion2]", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("fries1", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("fries2", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("pickleSlice1", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("pickleSlice2", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("onion1", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("onion2", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_TRUE(it->isDone());
+}
+
+TEST(iterator, Struct_and_List_DFSIterator){
+  Atom bun("bun"), beefPatty("beefPatty"), shreddedLettuce("shreddedLettuce"), 
+    sauce("sauce"), cheese("cheese"), pickleSlice1("pickleSlice1"), pickleSlice2("pickleSlice2"), 
+    onion1("onion1"), onion2("onion2"), coke("coke"), fries1("fries1"), fries2("fries2");
+  List pickleSlice({ &pickleSlice1, &pickleSlice2});
+  List onion({ &onion1, &onion2});
+  List fries({ &fries1, &fries2});
+  Struct bigMac(Atom("bigMac"), { &bun, &beefPatty, &shreddedLettuce, &sauce, &cheese, 
+    &pickleSlice, &onion});
+  Struct combo1(Atom("combo1"), { &bigMac, &coke, &fries});
+
+  Iterator<Term*> * it = combo1.createDFSIterator();
+  it->first();
+  EXPECT_EQ("bigMac(bun, beefPatty, shreddedLettuce, sauce, cheese, [pickleSlice1, pickleSlice2], [onion1, onion2])", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("bun", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("beefPatty", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("shreddedLettuce", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("sauce", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("cheese", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("[pickleSlice1, pickleSlice2]", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("pickleSlice1", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("pickleSlice2", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("[onion1, onion2]", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("onion1", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("onion2", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("coke", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("[fries1, fries2]", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("fries1", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("fries2", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_TRUE(it->isDone());
+}
+
+TEST(iterator, List_and_Struct_BFSIterator){
+  Number one(1), two(2), three(3), four(4), five(5), six(6);
+  Struct odd(Atom("odd"), { &one, &three, &five});
+  Struct even(Atom("even"), { &two, &four, &six});
+  List l({ &odd, &even});
+
+  Iterator<Term*> * it = l.createBFSIterator();
+  it->first();
+  EXPECT_EQ("odd(1, 3, 5)", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("even(2, 4, 6)", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("1", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("3", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("5", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("2", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("4", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("6", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_TRUE(it->isDone());
+}
+
+TEST(iterator, List_and_Struct_DFSIterator){
+  Number one(1), two(2), three(3), four(4), five(5), six(6);
+  Struct odd(Atom("odd"), { &one, &three, &five});
+  Struct even(Atom("even"), { &two, &four, &six});
+  List l({ &odd, &even});
+
+  Iterator<Term*> * it = l.createDFSIterator();
+  it->first();
+  EXPECT_EQ("odd(1, 3, 5)", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("1", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("3", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("5", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("even(2, 4, 6)", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("2", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("4", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("6", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_TRUE(it->isDone());
+}
+
 #endif

@@ -96,8 +96,6 @@ public:
       }
     }
     _v.erase(_v.begin());
-    for (int i = 0; i < _v.size(); i++)
-      std::cout << _v[i]->symbol() << std::endl;
   }
 
   void first() {
