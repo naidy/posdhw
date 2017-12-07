@@ -7,7 +7,7 @@ else
 	g++ -o hw7 main.o atom.o struct.o list.o -lgtest -lpthread
 endif
 
-main.o: main.cpp utIterator.h struct.h variable.h atom.h list.h iterator.h
+main.o: main.cpp utIterator.h struct.h variable.h atom.h list.h iterator.h number.h
 	g++ -std=gnu++0x -c main.cpp
 atom.o: atom.cpp atom.h variable.h iterator.h
 	g++ -std=gnu++0x -c atom.cpp
