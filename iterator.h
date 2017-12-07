@@ -1,13 +1,22 @@
 #ifndef ITERATOR_H
 #define ITERATOR_H
 
-#include "struct.h"
-#include "list.h"
+#include <vector>
+using std::vector;
 
 template <class T>
 class Iterator {
 public:
-  Iterator(T term): _index(0), _term(term) {}
+  virtual void first() = 0;
+  virtual void next() = 0;
+  virtual Term* currentItem() const = 0;
+  virtual bool isDone() const = 0;
+};
+
+template <class T>
+class TermIterator :public Iterator<T>{
+public:
+  TermIterator(T term): _index(0), _term(term) {}
 
   void first() {
     _index = 0;
@@ -24,6 +33,74 @@ public:
   void next() {
     _index++;
   }
+private:
+  int _index;
+  T _term;
+};
+
+template <class T>
+class BFSIterator :public Iterator<T>{
+public:
+  BFSIterator(T term): _index(0), _term(term) {
+    vector<T> q;
+    q.push_back(_term);
+    while(!q.empty()){
+      T t = q.front();
+      _v.push_back(t);
+
+      q.pop_back();
+
+      if (t->arity() == 0)
+        break;
+
+      for (int i = 0; i < t->arity(); i++){
+        q.insert(q.begin(), t->args(i));
+      }
+    }
+  }
+
+  void first() {
+    _index = 0;
+  }
+
+  Term* currentItem() const {
+    return _term->args(_index);
+  }
+
+  bool isDone() const {
+    return _index >= _term->arity();
+  }
+
+  void next() {
+    _index++;
+  }
+private:
+  int _index;
+  T _term;
+  vector<T> _v;
+};
+
+template <class T>
+class DFSIterator :public Iterator<T>{
+public:
+  DFSIterator(T term): _index(0), _term(term) {}
+
+  void first() {
+    _index = 0;
+  }
+
+  Term* currentItem() const {
+    return _term->args(_index);
+  }
+
+  bool isDone() const {
+    return _index >= _term->arity();
+  }
+
+  void next() {
+    _index++;
+  }
+  
 private:
   int _index;
   T _term;

@@ -2,7 +2,7 @@
 #include "iterator.h"
 Iterator<Term*> * Struct::createIterator()
 {
-  return new Iterator<Term*>(this);
+  return new TermIterator<Term*>(this);
 }
 
 Iterator<Term*> * Struct::createBFSIterator(){

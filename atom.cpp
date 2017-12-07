@@ -4,11 +4,11 @@
 #include <typeinfo>
 
 Iterator<Term*> * Term::createIterator(){
-  return new Iterator<Term*>(this);
+  return new TermIterator<Term*>(this);
 }
 
 Iterator<Term*> * Term::createBFSIterator(){
-	return nullptr;
+	return new BFSIterator<Term*>(this);
 }
 
 Iterator<Term*> * Term::createDFSIterator(){
