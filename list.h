@@ -12,7 +12,23 @@ class Variable ;
 
 class List : public Term {
 public:
-  string symbol() const {};
+  string symbol() const {
+    string s;
+    s += "[";
+
+    if (!isEmpty())
+      s += _elements[0]->symbol();
+    for (int i = 1; i < _elements.size(); i++){
+      s += ", ";
+      s += _elements[i]->symbol();
+    }
+    s += "]";
+
+    return s;
+  }
+  bool isEmpty() const {
+    return _elements.size() == 0;
+  }
   string value() const {};
   bool match(Term & term) {};
 public:

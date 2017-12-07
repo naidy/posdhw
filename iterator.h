@@ -47,7 +47,7 @@ public:
     q.push_back(_term);
     while(!q.empty()){
       T t = q.back();
-      _v.push_back(t);
+      _v.push_back(t); std::cout << t->symbol() << std::endl;
 
       q.pop_back();
 
