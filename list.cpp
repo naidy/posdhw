@@ -1,6 +1,6 @@
 #include "list.h"
 #include "iterator.h"
-Iterator * List::createIterator()
+Iterator<Term*> * List::createIterator()
 {
   return new ListIterator(this);
 }

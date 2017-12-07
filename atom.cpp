@@ -3,9 +3,8 @@
 #include "iterator.h"
 #include <typeinfo>
 
-Iterator * Term::createIterator(){
-  //return new NullIterator(this);
-	return nullptr;
+Iterator<Term*> * Term::createIterator(){
+  return new NullIterator(this);
 }
 
 bool Term::match(Term & a){

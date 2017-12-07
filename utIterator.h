@@ -14,7 +14,7 @@ TEST(iterator, first) {
     Struct t(Atom("t"), { &X, &two });
     Struct s(Atom("s"), { &one, &t, &Y });
     // StructIterator it(&s);
-    Iterator *itStruct = s.createIterator();
+    Iterator<Term*> *itStruct = s.createIterator();
     // Iterator& itStruct = it;
     // ASSERT_EQ(it.first()->symbol());
     itStruct->first();
@@ -36,12 +36,12 @@ TEST(iterator, nested_iterator) {
     Number two(2);
     Struct t(Atom("t"), { &X, &two });
     Struct s(Atom("s"), { &one, &t, &Y });
-    Iterator *it = s.createIterator();
+    Iterator<Term*> *it = s.createIterator();
     it->first();
     it->next();
     Struct *s2 = dynamic_cast<Struct *>(it->currentItem());
 
-    Iterator *it2 = s2->createIterator();
+    Iterator<Term*> *it2 = s2->createIterator();
     it2->first();
     ASSERT_EQ("X", it2->currentItem()->symbol());
     ASSERT_FALSE(it2->isDone());
@@ -60,7 +60,7 @@ TEST(iterator, firstList) {
     Struct t(Atom("t"), { &X, &two });
     List l({ &one, &t, &Y });
     ListIterator it(&l);
-    Iterator *itList = &it;
+    Iterator<Term*> *itList = &it;
     itList->first();
     ASSERT_EQ("1", itList->currentItem()->symbol());
     ASSERT_FALSE(itList->isDone());
@@ -72,17 +72,17 @@ TEST(iterator, firstList) {
     itList->next();
     ASSERT_TRUE(itList->isDone());
 }
-/*
+
 TEST(iterator, NullIterator){
   Number one(1);
   NullIterator nullIterator(&one);
   nullIterator.first();
   ASSERT_TRUE(nullIterator.isDone());
-  Iterator * it = one.createIterator();
+  Iterator<Term*> * it = one.createIterator();
   it->first();
   ASSERT_TRUE(it->isDone());
 }
-*/
+
 
 
 #endif
