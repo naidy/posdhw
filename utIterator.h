@@ -133,4 +133,58 @@ TEST(iterator, List_BFSIterator){
   EXPECT_TRUE(it->isDone());
 }
 
+TEST(iterator, Struct_DFSIterator){
+  Number one(1);
+  Variable X("X");
+  Variable Y("Y");
+  Number two(2);
+  Struct t(Atom("t"), { &X, &two });
+  Struct s(Atom("s"), { &one, &t, &Y });
+  Iterator<Term*> * it = s.createDFSIterator();
+  it->first();
+  EXPECT_EQ("1", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("t(X, 2)", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("X", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("2", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("Y", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_TRUE(it->isDone());
+}
+
+TEST(iterator, List_DFSIterator){
+  Number one(1);
+  Variable X("X");
+  Variable Y("Y");
+  Number two(2);
+  Struct t(Atom("t"), { &X, &two });
+  List l({ &one, &t, &Y });
+  Iterator<Term*> * it = l.createDFSIterator();
+  it->first();
+  EXPECT_EQ("1", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("t(X, 2)", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("X", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("2", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_EQ("Y", it->currentItem()->symbol());
+  EXPECT_FALSE(it->isDone());
+  it->next();
+  EXPECT_TRUE(it->isDone());
+}
+
 #endif

@@ -47,7 +47,7 @@ public:
     q.push_back(_term);
     while(!q.empty()){
       T t = q.back();
-      _v.push_back(t); std::cout << t->symbol() << std::endl;
+      _v.push_back(t); //std::cout << t->symbol() << std::endl;
 
       q.pop_back();
 
@@ -82,27 +82,43 @@ private:
 template <class T>
 class DFSIterator :public Iterator<T>{
 public:
-  DFSIterator(T term): _index(0), _term(term) {}
+  DFSIterator(T term): _index(0), _term(term) {
+    vector<T> q;
+    q.push_back(_term);
+    while(!q.empty()){
+      T t = q.back();
+      _v.push_back(t); //std::cout << t->symbol() << std::endl;
+
+      q.pop_back();
+
+      for (int i = t->arity() - 1; i >= 0; i--){
+        q.push_back(t->args(i));
+      }
+    }
+    _v.erase(_v.begin());
+    for (int i = 0; i < _v.size(); i++)
+      std::cout << _v[i]->symbol() << std::endl;
+  }
 
   void first() {
     _index = 0;
   }
 
   Term* currentItem() const {
-    return _term->args(_index);
+    return _v[_index];
   }
 
   bool isDone() const {
-    return _index >= _term->arity();
+    return _index >= _v.size();
   }
 
   void next() {
     _index++;
-  }
-  
+  }  
 private:
   int _index;
   T _term;
+  vector<T> _v;
 };
 
 /*

@@ -12,7 +12,7 @@ Iterator<Term*> * Term::createBFSIterator(){
 }
 
 Iterator<Term*> * Term::createDFSIterator(){
-	return nullptr;
+	return new DFSIterator<Term*>(this);
 }
 
 bool Term::match(Term & a){
