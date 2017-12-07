@@ -29,28 +29,28 @@ TEST(iterator, first) {
     ASSERT_TRUE(itStruct->isDone());
 }
 
-// TEST(iterator, nested_iterator) {
-//   Number one(1);
-//   Variable X("X");
-//   Variable Y("Y");
-//   Number two(2);
-//   Struct t(Atom("t"), { &X, &two });
-//   Struct s(Atom("s"), { &one, &t, &Y });
-  // StructIterator it(&s);
-  // it.first();
-  // it.next();
-  // Struct *s2 = dynamic_cast<Struct *>(it.currentItem());
+TEST(iterator, nested_iterator) {
+    Number one(1);
+    Variable X("X");
+    Variable Y("Y");
+    Number two(2);
+    Struct t(Atom("t"), { &X, &two });
+    Struct s(Atom("s"), { &one, &t, &Y });
+    Iterator *it = s.createIterator();
+    it->first();
+    it->next();
+    Struct *s2 = dynamic_cast<Struct *>(it->currentItem());
 
-  // StructIterator it2(s2);
-  // it2.first();
-  // ASSERT_EQ("X", it2.currentItem()->symbol());
-  // ASSERT_FALSE(it2.isDone());
-  // it2.next();
-  // ASSERT_EQ("2", it2.currentItem()->symbol());
-  // ASSERT_FALSE(it2.isDone());
-  // it2.next();
-  // ASSERT_TRUE(it2.isDone());
-// }
+    Iterator *it2 = s2->createIterator();
+    it2->first();
+    ASSERT_EQ("X", it2->currentItem()->symbol());
+    ASSERT_FALSE(it2->isDone());
+    it2->next();
+    ASSERT_EQ("2", it2->currentItem()->symbol());
+    ASSERT_FALSE(it2->isDone());
+    it2->next();
+    ASSERT_TRUE(it2->isDone());
+}
 
 TEST(iterator, firstList) {
     Number one(1);
@@ -60,7 +60,7 @@ TEST(iterator, firstList) {
     Struct t(Atom("t"), { &X, &two });
     List l({ &one, &t, &Y });
     ListIterator it(&l);
-    Iterator* itList = &it;
+    Iterator *itList = &it;
     itList->first();
     ASSERT_EQ("1", itList->currentItem()->symbol());
     ASSERT_FALSE(itList->isDone());
@@ -72,7 +72,7 @@ TEST(iterator, firstList) {
     itList->next();
     ASSERT_TRUE(itList->isDone());
 }
-
+/*
 TEST(iterator, NullIterator){
   Number one(1);
   NullIterator nullIterator(&one);
@@ -82,7 +82,7 @@ TEST(iterator, NullIterator){
   it->first();
   ASSERT_TRUE(it->isDone());
 }
-
+*/
 
 
 #endif

@@ -3,6 +3,32 @@
 
 #include "struct.h"
 #include "list.h"
+/*
+template <class T>
+class Iterator {
+public:
+  Iterator(T *term): _index(0), _term(term) {}
+
+  void first() {
+    _index = 0;
+  }
+
+  T* currentItem() const {
+    return _term->args(_index);
+  }
+
+  bool isDone() const {
+    return _index >= _term->arity();
+  }
+
+  void next() {
+    _index++;
+  }
+private:
+  int _index;
+  T* _term;
+};
+*/
 
 class Iterator {
 public:
@@ -11,7 +37,7 @@ public:
   virtual Term* currentItem() const = 0;
   virtual bool isDone() const = 0;
 };
-
+/*
 class NullIterator :public Iterator{
 public:
   NullIterator(Term *n){}
@@ -25,7 +51,7 @@ public:
   }
 
 };
-
+*/
 class StructIterator :public Iterator {
 public:
   friend class Struct;
@@ -73,4 +99,5 @@ private:
   int _index;
   List* _list;
 };
+
 #endif
