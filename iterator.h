@@ -3,17 +3,17 @@
 
 #include "struct.h"
 #include "list.h"
-/*
+
 template <class T>
 class Iterator {
 public:
-  Iterator(T *term): _index(0), _term(term) {}
+  Iterator(T term): _index(0), _term(term) {}
 
   void first() {
     _index = 0;
   }
 
-  T* currentItem() const {
+  Term* currentItem() const {
     return _term->args(_index);
   }
 
@@ -26,9 +26,10 @@ public:
   }
 private:
   int _index;
-  T* _term;
+  T _term;
 };
-*/
+
+/*
 template <class T>
 class Iterator {
 public:
@@ -99,5 +100,5 @@ private:
   int _index;
   List* _list;
 };
-
+*/
 #endif

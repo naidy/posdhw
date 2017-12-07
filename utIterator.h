@@ -59,8 +59,7 @@ TEST(iterator, firstList) {
     Number two(2);
     Struct t(Atom("t"), { &X, &two });
     List l({ &one, &t, &Y });
-    ListIterator it(&l);
-    Iterator<Term*> *itList = &it;
+    Iterator<Term*> *itList = l.createIterator();
     itList->first();
     ASSERT_EQ("1", itList->currentItem()->symbol());
     ASSERT_FALSE(itList->isDone());
@@ -75,9 +74,6 @@ TEST(iterator, firstList) {
 
 TEST(iterator, NullIterator){
   Number one(1);
-  NullIterator nullIterator(&one);
-  nullIterator.first();
-  ASSERT_TRUE(nullIterator.isDone());
   Iterator<Term*> * it = one.createIterator();
   it->first();
   ASSERT_TRUE(it->isDone());

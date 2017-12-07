@@ -4,7 +4,15 @@
 #include <typeinfo>
 
 Iterator<Term*> * Term::createIterator(){
-  return new NullIterator(this);
+  return new Iterator<Term*>(this);
+}
+
+Iterator<Term*> * Term::createBFSIterator(){
+	return nullptr;
+}
+
+Iterator<Term*> * Term::createDFSIterator(){
+	return nullptr;
 }
 
 bool Term::match(Term & a){

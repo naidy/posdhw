@@ -2,5 +2,13 @@
 #include "iterator.h"
 Iterator<Term*> * Struct::createIterator()
 {
-  return new StructIterator(this);
+  return new Iterator<Term*>(this);
+}
+
+Iterator<Term*> * Struct::createBFSIterator(){
+	return nullptr;
+}
+
+Iterator<Term*> * Struct::createDFSIterator(){
+	return nullptr;
 }
