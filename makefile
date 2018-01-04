@@ -1,16 +1,20 @@
 all:hw8
 
 atom.o: atom.cpp atom.h variable.h
-	g++ -std=c++11 -c atom.cpp
+	g++ -std=gnu++0x -c atom.cpp
 
 list.o:list.cpp list.h
-		g++ -std=c++11 -c list.cpp
+	g++ -std=gnu++0x -c list.cpp
 struct.o:struct.cpp struct.h
-		g++ -std=c++11 -c struct.cpp
+	g++ -std=gnu++0x -c struct.cpp
 hw8: mainExp.o exception.h expression.h atom.o list.o struct.o scanner.h parser.h global.h exp.h
-	g++ -o hw8 mainExp.o atom.o list.o struct.o -lgtest -lpthread
+	ifeq (${OS}, Windows_NT)
+		g++ -o hw8 main.o atom.o -lgtest
+	else
+		g++ -o hw8 main.o atom.o -lgtest -lpthread
+	endif
 mainExp.o: mainExp.cpp exception.h expression.h
-	g++ -std=c++11 -c mainExp.cpp
+	g++ -std=gnu++0x -c mainExp.cpp
 
 
 #utTerm: mainTerm.o term.o struct.o var.o list.o
