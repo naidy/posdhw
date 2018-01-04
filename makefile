@@ -1,4 +1,4 @@
-all:hw8
+all:hw8 shell
 
 atom.o: atom.cpp atom.h variable.h
 	g++ -std=gnu++0x -c atom.cpp
@@ -18,6 +18,15 @@ endif
 mainExp.o: mainExp.cpp exception.h expression.h
 	g++ -std=gnu++0x -c mainExp.cpp
 
+shell: mainShell.o exception.h expression.h atom.o list.o struct.o scanner.h parser.h global.h exp.h
+ifeq (${OS}, Windows_NT)
+	g++ -o shell mainShell.o atom.o list.o struct.o -lgtest
+else
+	g++ -o shell mainShell.o atom.o list.o struct.o -lgtest -lpthread
+endif
+
+mainShell.o: mainShell.cpp
+	g++ -std=gnu++0x -c mainShell.cpp
 
 #utTerm: mainTerm.o term.o struct.o var.o list.o
 #	g++ -o utTerm mainTerm.o term.o var.o struct.o list.o -lgtest -lpthread
