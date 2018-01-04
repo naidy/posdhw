@@ -10,9 +10,9 @@ struct.o:struct.cpp struct.h
 
 hw8: mainExp.o exception.h expression.h atom.o list.o struct.o scanner.h parser.h global.h exp.h
 ifeq (${OS}, Windows_NT)
-	g++ -o hw8 main.o atom.o -lgtest
+	g++ -o hw8 mainExp.o atom.o list.o struct.o -lgtest
 else
-	g++ -o hw8 main.o atom.o -lgtest -lpthread
+	g++ -o hw8 mainExp.o atom.o list.o struct.o -lgtest -lpthread
 endif
 
 mainExp.o: mainExp.cpp exception.h expression.h
